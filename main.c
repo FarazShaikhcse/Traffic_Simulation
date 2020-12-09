@@ -199,33 +199,33 @@ void road(){
         glEnd();
     }
 }
-void carsv(float lrIndex)
+void carsv(float lrIndex,float y)
 {
      glColor3f(0.000, 0.000, 0.000);
     glBegin(GL_POLYGON);
-    glVertex2f(lrIndex + 26 - 2, 5);
-    glVertex2f(lrIndex + 26 - 2, 7);
-    glVertex2f(lrIndex + 30 + 2, 7);
-    glVertex2f(lrIndex + 30 + 2, 5);
+    glVertex2f(lrIndex + 26 - 2, y);//5
+    glVertex2f(lrIndex + 26 - 2, y+2);
+    glVertex2f(lrIndex + 30 + 2, y+2);
+    glVertex2f(lrIndex + 30 + 2, y);
     glEnd();
     //Back Tire
     glColor3f(0.000, 0.000, 0.000);
     glBegin(GL_POLYGON);
-    glVertex2f(lrIndex + 26 - 2, 1);
-    glVertex2f(lrIndex + 26 - 2, 3);
-    glVertex2f(lrIndex + 30 + 2, 3);
-    glVertex2f(lrIndex + 30 + 2, 1);
+    glVertex2f(lrIndex + 26 - 2, y-4);
+    glVertex2f(lrIndex + 26 - 2, y-2);
+    glVertex2f(lrIndex + 30 + 2, y-2);
+    glVertex2f(lrIndex + 30 + 2, y-4);
     glEnd();
     //Car Body
     glColor3f(0.678, 1.000, 0.184);
     glBegin(GL_POLYGON);
-    glVertex2f(lrIndex + 26, 1);
-    glVertex2f(lrIndex + 26, 8);
+    glVertex2f(lrIndex + 26, y-4);
+    glVertex2f(lrIndex + 26, y+3);
     glColor3f(0.000, 0.545, 0.545);
 
-    glVertex2f(lrIndex + 28, 10);
-    glVertex2f(lrIndex + 30, 8);
-    glVertex2f(lrIndex + 30, 1);
+    glVertex2f(lrIndex + 28, y+5);
+    glVertex2f(lrIndex + 30, y+3);
+    glVertex2f(lrIndex + 30, y-4);
     glEnd();
 }
 void simulation()
@@ -236,10 +236,23 @@ void simulation()
     glColor3f(1.0f,1.0f,1.0f);
 tree();
 road();
-carsv(25);
+for(int y=0;y<120;y+=2)
+{
+   glClear(GL_COLOR_BUFFER_BIT);
+    sleep(1);
+
+
+    tree();
+    road();
+    carsv(25,y);
+    glFlush();
+    glutSwapBuffers();
+}
+
     glFlush();
 
 }
+
 void createnewwindow()
 {
     glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
